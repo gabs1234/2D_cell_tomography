@@ -6,8 +6,6 @@ class Ray(object):
 		self.origin = np.array(origin)
 		self.direction = np.array(dir)
 		
-		self.sign = np.where(self.direction < 0, [1]*len(self.direction), [0]*len(self.direction))
-
 		# Avoid printing error when infinity encoutered
 		with np.errstate(divide='ignore'):
 			self.invDirection = np.divide(1.0, self.direction)
@@ -24,20 +22,20 @@ class Ray(object):
 					return False
 
 		if( self.constantAxis[0] ):
-			tmin = -np.inf
-			tmax = +np.inf
+			txmin = -np.inf
+			txmax = +np.inf
 		else:
-			tmin = (bounds[:, self.sign[0]][0] - self.origin[0]) * self.invDirection[0]
-			tmax = (bounds[:, 1 - self.sign[0]][0] - self.origin[0]) * self.invDirection[0]
+			txmin = (bounds[0][0] - self.origin[0]) * self.invDirection[0]
+			txmax = (bounds[1][0] - self.origin[0]) * self.invDirection[0]
 
 		if( self.constantAxis[1] ):
 			tymin = -np.inf
 			tymax = +np.inf
 		else:
-			tymin = (bounds[:, self.sign[1]][1] - self.origin[1]) * self.invDirection[1]
-			tymax = (bounds[:, 1 - self.sign[1]][1] - self.origin[1]) * self.invDirection[1]
+			tymin = (bounds[0][1] - self.origin[1]) * self.invDirection[1]
+			tymax = (bounds[1][1] - self.origin[1]) * self.invDirection[1]
 
-		if( (tmin >= tymax) or (tymin >= tmax) ):
+		if( (tymax <= txmin ) or (txmax <= tymin) ):
 			return False
 		
 		return True

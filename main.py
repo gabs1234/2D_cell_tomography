@@ -6,7 +6,7 @@ from Grid import Grid
 
 grid = Grid(3, 3, 1, 1)
 
-ray = Ray((0, 0), (-1, -1))
+ray = Ray((0, 0), (1,2))
 
 inter = grid._findIntersectingPoints(ray)
 
