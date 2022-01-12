@@ -6,11 +6,11 @@ from Grid import Grid
 
 grid = Grid(2,2, 1, 1)
 
-ray = Ray((1, 0), (-1, 1))
+ray = Ray((.4, 0), (1, 1))
 
-inter = grid._findIntersectingPoints(ray)
+inter = grid.getDistances(ray)
 
-print("inter points:", inter.values())
+print("inter points:", inter)
 
 for cell in inter:
 	cell.disp()
