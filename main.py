@@ -4,11 +4,13 @@ from Ray import Ray
 from Cell import Cell
 from Grid import Grid
 
-grid = Grid(3, 3, 1, 1)
+grid = Grid(2,2, 1, 1)
 
-ray = Ray((0, 0), (1,2))
+ray = Ray((1, 0), (-1, 1))
 
 inter = grid._findIntersectingPoints(ray)
+
+print("inter points:", inter.values())
 
 for cell in inter:
 	cell.disp()

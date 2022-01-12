@@ -15,7 +15,7 @@ class Grid(object):
 		self.grid = [0]*n
 
 		Cx = self.Lx/self.Nx
-		Cy= self.Ly/self.Ny
+		Cy = self.Ly/self.Ny
 
 		counter = 0
 
@@ -23,18 +23,13 @@ class Grid(object):
 			for ix in range(self.Nx):
 				self.grid[counter] = Cell(ix*Cx, (ix+1)*Cx, iy*Cy, (iy+1)*Cy, counter)
 				counter += 1
-	
-		
-	def _findIntersectingPoints(self, ray):
-		intersections = {}
 
+	def _findIntersectingPoints(self, ray):
 		#TODO: test if grid exists
 		for cell in self.grid:
-			if( ray.intersects(cell) ):
-				# intersections[cell] = self.getIntersection(ray, cell)
-				intersections[cell] = cell
+			ray.intersects(cell)
 
-		return intersections
+		return ray.points
 
 	# def getDistances(self, ray):
 	# 	intersections = self._findIntersectingPoints(ray)

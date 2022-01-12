@@ -8,8 +8,9 @@ class Cell(object):
 		self.ymax = ymax
 		self.id = id
 
-		self.bounds = np.array(((self.xmin, self.ymin), (self.xmax, self.ymax)))
+		self.bounds = ((self.xmin, self.ymin), (self.xmax, self.ymax))
 	
 
 	def disp(self):
-		print("{}: ".format(self.id), self.bounds)
+		# (xmin xmax) (ymin ymax)
+		print("{}: ".format(self.id), (self.xmin, self.xmax), (self.ymin, self.ymax))
