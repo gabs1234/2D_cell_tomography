@@ -49,7 +49,7 @@ class Grid(object):
 		distances = {}
 		for cell_id, points in intersections.items():
 			tmp_dist = self._calcDistance(points)
-			if( self.eps < tmp_dist <= self.maxLen):
+			if( self.eps < tmp_dist <= self.maxLen+self.eps):
 				distances[cell_id] = tmp_dist
 		
 		return distances

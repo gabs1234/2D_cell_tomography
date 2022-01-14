@@ -77,5 +77,6 @@ class Ray(object):
 			self.points[cell] = [pa, pb]
 		return True
 	
-	# def getIntersection(self, cell):
+	def disp(self):
+		print("o:", self.origin, "\t dir:", self.direction)
 		
