@@ -2,3 +2,5 @@ dm2.pdf
 *.ipynb
 notes.txt
 __pycache__
+geogebra-export.ggb
+ray_test.py
