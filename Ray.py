@@ -2,7 +2,7 @@ from Cell import Cell
 import numpy as np
 
 class Ray(object):
-	points = {}
+	
 
 	def __init__(self, origin, dir):
 		self.origin = np.array(origin)
@@ -16,6 +16,7 @@ class Ray(object):
 
 		# Signal along which axis the line is constant
 		self.constantAxis = (self.direction == 0)
+		self.points = {}
 
 
 	def intersects(self, cell):
@@ -55,20 +56,20 @@ class Ray(object):
 		else:
 
 			if( tymin < txmin ):
-				pax = bounds[0][0]
+				pax = bounds[self.sign[0]][0]
 				pay = self.origin[1] + self.direction[1]*txmin
 			
 			else:
 				pax = self.origin[0] + self.direction[0]*tymin
-				pay = bounds[0][1]
+				pay = bounds[self.sign[1]][1]
 			
 			if( txmax < tymax ):
-				pbx = bounds[1][0]
+				pbx = bounds[1-self.sign[0]][0]
 				pby = self.origin[1] + self.direction[1]*txmax
 			
 			else:
 				pbx = self.origin[0] + self.direction[0]*tymax
-				pby = bounds[1][1]
+				pby = bounds[1-self.sign[1]][1]
 			
 			pa = (pax, pay)
 			pb = (pbx, pby)

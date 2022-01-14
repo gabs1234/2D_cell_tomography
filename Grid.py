@@ -4,11 +4,15 @@ from Cell import Cell
 import numpy as np
 
 class Grid(object):
+	eps = np.finfo(np.float32).eps
+	
 	def __init__(self, Nx, Ny, Lx, Ly, image=None):
 		self.Nx = Nx
 		self.Ny = Ny
 		self.Lx = Lx
 		self.Ly = Ly
+
+		self.maxLen = ((self.Lx/self.Nx)**2 + (self.Ly/self.Ny)**2)**.5
 
 		self._initBuild()
 
@@ -44,7 +48,9 @@ class Grid(object):
 
 		distances = {}
 		for cell_id, points in intersections.items():
-			distances[cell_id] = self._calcDistance(points)
+			tmp_dist = self._calcDistance(points)
+			if( self.eps < tmp_dist <= self.maxLen):
+				distances[cell_id] = tmp_dist
 		
 		return distances
 	
