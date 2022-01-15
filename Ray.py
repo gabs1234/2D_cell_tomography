@@ -2,9 +2,8 @@ from Cell import Cell
 import numpy as np
 
 class Ray(object):
-	
 
-	def __init__(self, origin, dir):
+	def __init__(self, origin, dir, id=0):
 		self.origin = np.array(origin)
 		self.direction = np.array(dir)
 		
@@ -17,6 +16,9 @@ class Ray(object):
 		# Signal along which axis the line is constant
 		self.constantAxis = (self.direction == 0)
 		self.points = {}
+
+		self.value = 0
+		self.id = id
 
 
 	def intersects(self, cell):
@@ -43,6 +45,8 @@ class Ray(object):
 
 		if( (tymax <= txmin ) or (txmax <= tymin) ):
 			return False
+
+		self.value += cell.value
 
 		if( self.constantAxis[1] ):
 			pa = (self.origin[0] + self.direction[0]*txmin, self.origin[1] )

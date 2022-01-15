@@ -7,16 +7,24 @@ class Grid(object):
 	eps = np.finfo(np.float32).eps
 	
 	def __init__(self, Nx, Ny, Lx, Ly, image=None):
-		self.Nx = Nx
-		self.Ny = Ny
+		if( isinstance(image, type(None)) ):
+			self.Nx = Nx
+			self.Ny = Ny
+		else:
+			self.Nx = image.shape[1]
+			self.Ny = image.shape[0]
+
 		self.Lx = Lx
 		self.Ly = Ly
 
 		self.maxLen = ((self.Lx/self.Nx)**2 + (self.Ly/self.Ny)**2)**.5
 
-		self._initBuild()
+		if( isinstance(image, type(None)) ):
+			self._initBuild()
+		else:
+			self._initBuild(image)
 
-	def _initBuild(self):
+	def _initBuild(self, image=None):
 		n = self.Nx*self.Ny
 		self.grid = [0]*n
 
@@ -25,10 +33,16 @@ class Grid(object):
 
 		counter = 0
 
-		for iy in range(self.Ny):
-			for ix in range(self.Nx):
-				self.grid[counter] = Cell(ix*Cx, (ix+1)*Cx, iy*Cy, (iy+1)*Cy, counter)
-				counter += 1
+		if( isinstance(image, type(None)) ):
+			for iy in range(self.Ny):
+				for ix in range(self.Nx):
+					self.grid[counter] = Cell(ix*Cx, (ix+1)*Cx, iy*Cy, (iy+1)*Cy, counter)
+					counter += 1
+		else:
+			for iy, col in enumerate(image):
+				for ix, val in enumerate(col):
+					self.grid[counter] = Cell(ix*Cx, (ix+1)*Cx, iy*Cy, (iy+1)*Cy, counter, val)
+					counter += 1
 
 	def _findIntersectingPoints(self, ray):
 		#TODO: test if grid exists
@@ -55,5 +69,6 @@ class Grid(object):
 		return distances
 	
 	def disp(self):
+		print("  (xmin xmax) (ymin ymax)")
 		for cell in self.grid:
 			cell.disp()

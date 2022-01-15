@@ -1,7 +1,7 @@
 import numpy as np
 
 class Cell(object):
-	def __init__(self, xmin, xmax, ymin, ymax, id):
+	def __init__(self, xmin, xmax, ymin, ymax, id, value = 0):
 		self.xmin = xmin
 		self.xmax = xmax
 		self.ymin = ymin
@@ -9,6 +9,9 @@ class Cell(object):
 		self.id = id
 
 		self.bounds = ((self.xmin, self.ymin), (self.xmax, self.ymax))
+
+
+		self.value = value
 	
 
 	def disp(self):
